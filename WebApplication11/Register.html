@@ -1,0 +1,56 @@
+﻿<!DOCTYPE html>
+<html ng-app="mymap">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+
+    <script src="Scripts/angular.min.js"></script>
+</head>
+<body ng-controller="register">
+    Search
+    <input type="text" ng-model="search.$" />
+    <br /><br />
+    <!--<table cellpadding="2" cellspacing="2" border="1">
+        <tr>
+            <th>username</th>
+            <th>Password</th>
+            <th>Emailaddress</th>
+           
+        </tr>
+        <tr ng-repeat="register in user |filter:search">
+            <td>{{register.username}}</td>
+            <td>{{register.password}}</td>
+            <td>{{register.EmailAddress}}</td>
+        </tr>
+    </table>-->
+    <script type="text/javascript">
+        var myapp = angular.module('mymap', []);
+        myapp.controller('register', function ($scope, $http)
+        {
+           
+            $http.get('http://localhost:50569/api/Registers/GetDatas',
+                {
+                    params:
+                        {
+                            username: 'admin',
+                            password:'123'
+                        }
+                }
+            )
+                .then(function (response) {
+
+                    var data = response.data;
+                    var status = response.status;
+                    var statusText = response.statusText;
+                    var headers = response.headers;
+                    var config = response.config;
+
+                    $scope.user = data;
+                    console.log(data);
+                });
+        }
+        );
+
+    </script>
+</body>
+</html>
